@@ -14,8 +14,10 @@ def build_postcode_search_doc(postcode_list):
                               postcode_object: {postcode_object}")
             return None
 
-        latitude = float(postcode_list[2])
-        longitude = float(postcode_list[3])
+        is_lat_float, latitude = is_float(postcode_list[2])
+        is_long_float, longitude = is_float(postcode_list[3])
+        if not is_lat_float or not is_long_float:
+            return None 
 
         if validateLatitude(latitude) or validateLongitude(longitude):
             logging.warning(f"coordinates invalid\n\
@@ -75,3 +77,10 @@ def validate_header(header_row):
         invalid = True
 
     return invalid
+
+def is_float(value):
+  try:
+    new_value = float(value)
+    return True, new_value
+  except ValueError:
+    return False, None

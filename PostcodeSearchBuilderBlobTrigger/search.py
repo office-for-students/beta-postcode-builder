@@ -125,7 +125,6 @@ class Load():
             postcode_list = [r.strip() for r in row.split(',')]
 
             if postcode_count == 1:
-                postcode_list[0] = "bad_id"
                 if models.validate_header(postcode_list):
                     logging.error(f"invalid header row\nheader_row: {postcode_list}")
                     raise exceptions.StopEtlPipelineErrorException
