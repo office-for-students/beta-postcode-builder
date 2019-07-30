@@ -141,3 +141,5 @@ test-output.xml
 
 # config file - used to config black
 pyproject.toml
+
+beta-postcode-builder.zip
