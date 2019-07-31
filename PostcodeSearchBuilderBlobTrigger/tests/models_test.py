@@ -2,14 +2,18 @@ import unittest
 import os
 import sys
 import inspect
-import json
 
 CURRENTDIR = os.path.dirname(
     os.path.abspath(inspect.getfile(inspect.currentframe())))
 PARENTDIR = os.path.dirname(CURRENTDIR)
 sys.path.insert(0, PARENTDIR)
 
-from models import build_postcode_search_doc, validateLatitude, validateLongitude, validate_header
+from models import (
+    build_postcode_search_doc,
+    validate_latitude,
+    validate_longitude,
+    validate_header
+)
 
 
 class TestValidateLatitude(unittest.TestCase):
@@ -17,44 +21,46 @@ class TestValidateLatitude(unittest.TestCase):
         input_latitude = 50.456382
         expected_result = False
 
-        result = validateLatitude(input_latitude)
+        result = validate_latitude(input_latitude)
         self.assertEqual(expected_result, result)
 
     def test_outside_latitudinal_minimum(self):
         input_latitude = 48.456382
         expected_result = True
 
-        result = validateLatitude(input_latitude)
+        result = validate_latitude(input_latitude)
         self.assertEqual(expected_result, result)
 
     def test_outside_latitudinal_maximum(self):
         input_latitude = 61.456382
         expected_result = True
 
-        result = validateLatitude(input_latitude)
+        result = validate_latitude(input_latitude)
         self.assertEqual(expected_result, result)
+
 
 class TestValidateLongitude(unittest.TestCase):
     def test_within_longitudinal_range(self):
         input_longitude = -4.5738109
         expected_result = False
 
-        result = validateLongitude(input_longitude)
+        result = validate_longitude(input_longitude)
         self.assertEqual(expected_result, result)
 
     def test_outside_longitudinal_minimum(self):
         input_longitude = -11.5738109
         expected_result = True
 
-        result = validateLongitude(input_longitude)
+        result = validate_longitude(input_longitude)
         self.assertEqual(expected_result, result)
 
     def test_outside_longitudinal_maximum(self):
         input_longitude = 3.456382
         expected_result = True
 
-        result = validateLongitude(input_longitude)
+        result = validate_longitude(input_longitude)
         self.assertEqual(expected_result, result)
+
 
 class TestValidateHeader(unittest.TestCase):
     def test_header_row_is_correct(self):
@@ -65,7 +71,12 @@ class TestValidateHeader(unittest.TestCase):
         self.assertEqual(expected_result, result)
 
     def test_with_incorrect_item_1(self):
-        invalid_header_row = ["identifier", "postcode", "latitude", "longitude"]
+        invalid_header_row = [
+            "identifier",
+            "postcode",
+            "latitude",
+            "longitude"
+        ]
         expected_result = True
 
         result = validate_header(invalid_header_row)
@@ -77,7 +88,7 @@ class TestValidateHeader(unittest.TestCase):
 
         result = validate_header(invalid_header_row)
         self.assertEqual(expected_result, result)
-    
+
     def test_with_incorrect_item_3(self):
         invalid_header_row = ["id", "postcode", "lat", "longitude"]
         expected_result = True
@@ -91,6 +102,7 @@ class TestValidateHeader(unittest.TestCase):
 
         result = validate_header(invalid_header_row)
         self.assertEqual(expected_result, result)
+
 
 class TestBuildPostcodeSearchDoc(unittest.TestCase):
     def test_successful_postcode_search_doc(self):

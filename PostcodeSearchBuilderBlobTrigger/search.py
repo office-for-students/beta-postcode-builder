@@ -126,7 +126,8 @@ class Loader():
 
             if postcode_count == 1:
                 if models.validate_header(postcode_list):
-                    logging.error(f"invalid header row\nheader_row: {postcode_list}")
+                    logging.error(f"invalid header row\n\
+                                    header_row: {postcode_list}")
                     raise exceptions.StopEtlPipelineErrorException
                     break
 
