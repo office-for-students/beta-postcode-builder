@@ -1,4 +1,4 @@
-"""Contains the entry point for Create Postode Search
+"""Contains the entry point for Create Postcode Search
 Azure Function implementation"""
 import logging
 import io

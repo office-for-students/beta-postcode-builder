@@ -79,8 +79,8 @@ def validate_header(header_row):
     return invalid
 
 def is_float(value):
-  try:
-    new_value = float(value)
+    try:
+        new_value = float(value)
     return True, new_value
-  except ValueError:
+        except ValueError:
     return False, None

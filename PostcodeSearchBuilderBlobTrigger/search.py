@@ -21,7 +21,7 @@ def build_index(url, api_key, api_version, index_name):
 def load_index(url, api_key, api_version, index_name, rows):
 
     try:
-        load = Load(url, api_key, api_version, index_name, rows)
+        load = Loader(url, api_key, api_version, index_name, rows)
 
         load.postcode_documents()
     except Exception:
@@ -70,7 +70,7 @@ class Index():
             raise exceptions.StopEtlPipelineErrorException
 
     def create(self):
-        self.get_index()
+        self.build_postcode_schema()
 
         try:
             create_url = self.url + "/indexes" + self.query_string
@@ -89,7 +89,7 @@ class Index():
 
             raise exceptions.StopEtlPipelineErrorException
 
-    def get_index(self):
+    def build_postcode_schema(self):
         cwd = os.path.dirname(os.path.abspath(__file__))
         with open(os.path.join(cwd, 'schemas/postcode.json')) as json_file:
             schema = json.load(json_file)
@@ -98,7 +98,7 @@ class Index():
             self.postcode_schema = schema
 
 
-class Load():
+class Loader():
     """Loads postcode documents into search index"""
     def __init__(self, url, api_key, api_version, index_name, rows):
 

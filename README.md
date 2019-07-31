@@ -95,9 +95,9 @@ Azure Storage
 
 5) Create your local.settings.json file at root level of repository and include all environment variables in the configuration settings table above.
 
-6) Create a virtual machine to run the azure function application by running `venv .env` at root level of repository.
+6) Create a Python virtual env to run the azure function application by running `venv .env` at root level of repository.
 
-7) Run service on virtual machine by doing the following:
+7) Run service on Python virtual env by doing the following:
 ```
 source .env/bin/activate
 pip install -r requirements.txt
