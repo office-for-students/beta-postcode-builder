@@ -1,4 +1,4 @@
-azure-functions-worker==1.0.0b6
+azure-functions==1.0.0b5
 azure-storage-blob==2.0.1
 requests==2.22.0
 pytest==4.6.3
